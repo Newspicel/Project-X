@@ -20,11 +20,11 @@ class ListHomeCommand(javaPlugin: JavaPlugin) : Command(javaPlugin = javaPlugin,
 
     override fun execute(sender: CommandSender, args: Array<String>) {
         if (isPlayer(sender).isPresent) {
-            var player: Player = isPlayer(sender).get()
+            val player: Player = isPlayer(sender).get()
             val homeManager: HomeManager? = JavaPlugin.getPlugin(Projekt::class.java).homeManager
-            if (Objects.requireNonNull<List<String>>(homeManager!!.toStringArray(player.uniqueId.toString())).isNotEmpty()) {
+            if (homeManager?.toStringArray(player.uniqueId.toString())?.isNotEmpty()!!) {
                 val stringBuilder = StringBuilder()
-                Objects.requireNonNull<List<String>>(homeManager.toStringArray(player.uniqueId.toString())).forEach { s -> stringBuilder.append(s).append(", ") }
+                homeManager.toStringArray(player.uniqueId.toString()).forEach { s -> stringBuilder.append(s).append(", ") }
                 player.sendMessage(Data.prefix + "§aDu besitzt diese Homes: " + stringBuilder.toString())
             } else {
                 player.sendMessage(Data.prefix + "§aDu besitzt keine Homes")

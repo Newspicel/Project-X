@@ -18,7 +18,7 @@ class DelHomeCommand(javaPlugin: JavaPlugin) : Command(javaPlugin = javaPlugin, 
 
     override fun execute(sender: CommandSender, args: Array<String>) {
         if (isPlayer(sender).isPresent) {
-            var player: Player = isPlayer(sender).get();
+            val player: Player = isPlayer(sender).get();
             val homeManager: HomeManager? = JavaPlugin.getPlugin(Projekt::class.java).homeManager
             if (args.size == 1) {
                 if (homeManager!!.isExist(player.uniqueId.toString(), args[0])) {

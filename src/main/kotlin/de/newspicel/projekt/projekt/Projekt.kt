@@ -21,7 +21,7 @@ class Projekt : JavaPlugin() {
         GameModeCommand(this)
         InfoCommand(this)
         ManagementListener(this)
-        homeManager = HomeManager(this)
+        homeManager = HomeManager()
 
         Bukkit.getWorlds().forEach { worlds ->
             run {

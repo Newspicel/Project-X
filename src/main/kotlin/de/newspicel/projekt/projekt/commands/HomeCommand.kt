@@ -23,13 +23,15 @@ class HomeCommand(javaPlugin: JavaPlugin) : Command(javaPlugin = javaPlugin, com
 
     override fun execute(sender: CommandSender, args: Array<String>) {
         if (isPlayer(sender).isPresent) {
-            var player: Player = isPlayer(sender).get();
+            val player: Player = isPlayer(sender).get();
             if (args.size == 1) {
                 val homeManager: HomeManager? = JavaPlugin.getPlugin(Projekt::class.java).homeManager
                 if (homeManager!!.isExist(player.uniqueId.toString(), args[0])) {
                     val fromPlayerAndName = homeManager.getFromPlayerAndName(player.uniqueId.toString(), args[0])
-                    val first = fromPlayerAndName.homes.first()
-                    player.teleport(Location(Bukkit.getWorld(first.world), first.x, first.y, first.z, first.yaw, first.pitch))
+                    val first = fromPlayerAndName.homes?.first()
+                    if (first != null) {
+                        player.teleport(Location(Bukkit.getWorld(first.world), first.x, first.y, first.z, first.yaw, first.pitch))
+                    }
                     player.sendMessage(Data.prefix + "§aDu hast dich zu deinem Home §9" + args[0] + "§a teleportiert!")
                 } else {
                     player.sendMessage(Data.prefix + "§aDas Home §9" + args[0] + "§a gibt es nicht!")

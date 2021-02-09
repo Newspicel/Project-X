@@ -15,15 +15,13 @@ class SetHomeCommand(javaPlugin: JavaPlugin) : Command(javaPlugin = javaPlugin, 
             return@TabCompleter emptyList()
         }) {
 
-    private val homeManager: HomeManager? = JavaPlugin.getPlugin(Projekt::class.java).homeManager
-
     override fun execute(sender: CommandSender, args: Array<String>) {
         if (isPlayer(sender).isPresent) {
-            var player: Player = isPlayer(sender).get();
+            val player: Player = isPlayer(sender).get();
             if (args.size == 1) {
                 val homeManager: HomeManager? = JavaPlugin.getPlugin(Projekt::class.java).homeManager
                 if (!homeManager!!.isExist(player.uniqueId.toString(), args[0])) {
-                    homeManager.addHome(Home(player.uniqueId.toString(), args[0], player.location.x, player.location.y, player.location.z, player.location.yaw, player.location.pitch, player.location.world?.name))
+                    homeManager.addHome(player.location.world?.name?.let { Home(player.uniqueId.toString(), args[0], player.location.x, player.location.y, player.location.z, player.location.yaw, player.location.pitch, it) })
                     player.sendMessage(Data.prefix + "§aDu hast das Home §9" + args[0] + "§a erstellt!")
                 } else {
                     player.sendMessage(Data.prefix + "§aDas Home §9" + args[0] + "§a gibt es bereits!")
