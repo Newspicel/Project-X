@@ -1,0 +1,14 @@
+name: Projekt
+version: ${project.version}
+main: de.newspicel.projekt.projekt.Projekt
+api-version: 1.16
+
+commands:
+  tpa:
+  vote:
+  home:
+  sethome:
+  delhome:
+  listhome:
+  gamemode:
+  info:
